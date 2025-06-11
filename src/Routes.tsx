@@ -4,9 +4,11 @@ import ScheduleSurgery from './pages/ScheduleSurgery';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
-const Router = () => {
-  const isAuthenticated = !!localStorage.getItem('token');
+type RouterProps = {
+  isAuthenticated: boolean;
+};
 
+const Router = ({ isAuthenticated }: RouterProps) => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />

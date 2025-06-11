@@ -2,10 +2,12 @@ import NavBar from './NavBar';
 import Router from './Routes';
 
 function App() {
+  const isAuthenticated = !!localStorage.getItem('token');
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 w-full mx-auto">
-      <NavBar />
-      <Router />
+      {isAuthenticated && <NavBar />}
+      <Router isAuthenticated={isAuthenticated} />
     </div>
   );
 }

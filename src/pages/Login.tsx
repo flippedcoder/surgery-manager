@@ -1,7 +1,7 @@
 import LoginForm from '../components/LoginForm';
 
 const Login = () => (
-  <div className="flex flex-col items-center min-h-screen bg-gray-100">
+  <div className="flex flex-col items-center min-h-screen bg-gray-100 pt-10">
     <h1 className="text-3xl font-bold mb-6">Welcome to the Surgery Scheduler</h1>
     <LoginForm />
     <button
