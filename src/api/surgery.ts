@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:3000', // Update this if your backend is different
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 export const getSurgeries = (patientId: string) =>
@@ -11,6 +11,7 @@ export const getSurgeries = (patientId: string) =>
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   });
+
 export const createSurgery = (data: any) =>
   API.post('/surgery', data, {
     headers: {
@@ -18,6 +19,7 @@ export const createSurgery = (data: any) =>
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   });
+
 export const cancelSurgery = (id: string) =>
   API.delete(`/surgery/${id}`, {
     headers: {
@@ -25,5 +27,7 @@ export const cancelSurgery = (id: string) =>
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   });
+
 export const registerUser = (data: any) => API.post('/auth/register', data);
+
 export const loginUser = (data: any) => API.post('/auth/login', data);

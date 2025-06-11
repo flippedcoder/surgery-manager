@@ -31,6 +31,15 @@ const SurgeryList = () => {
 
   const formattedDate = (date: string) => dayjs(date).format('MMM D, YYYY');
 
+  const handleCancelSurgery = async (surgeryId: string) => {
+    try {
+      await cancelSurgery(surgeryId);
+      setSurgeries(surgeries.filter((surgery: Surgery) => surgery._id !== surgeryId));
+    } catch (error) {
+      console.error('Error canceling surgery:', error);
+    }
+  };
+
   if (!surgeries.length) {
     return (
       <div className="flex flex-col max-w-2xl mx-auto">
@@ -38,6 +47,12 @@ const SurgeryList = () => {
           No upcoming surgeries found for {patient.name} with birthdate{' '}
           {formattedDate(patient.birthdate)}.
         </div>
+        <Link
+          to="/schedule"
+          className="mt-4 text-center inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+        >
+          Schedule a Surgery
+        </Link>
       </div>
     );
   }
@@ -57,7 +72,7 @@ const SurgeryList = () => {
             key={surgery._id}
             className="bg-white shadow-md rounded-xl p-4 border border-gray-200"
           >
-            <div className="flex justify-between items-center mb-2 w-[250px]">
+            <div className="flex flex-col justify-between items-center mb-2 w-[250px]">
               <h3 className="text-lg font-semibold text-gray-800">{surgery.type}</h3>
               <span className="text-sm text-gray-500">
                 {dayjs(surgery.surgeryDate).format('MMM D, YYYY h:mm A')}
@@ -73,14 +88,14 @@ const SurgeryList = () => {
               </p>
               <p>
                 <span className="font-medium">DOB:</span>{' '}
-                {dayjs(patient.birthdate).format('YYYY-MM-DD')}
+                {dayjs(patient.birthdate).format('MMM D, YYYY')}
               </p>
               <p>
                 <span className="font-medium">Age:</span> {patient.age}
               </p>
 
               <button
-                onClick={() => cancelSurgery(surgery._id)}
+                onClick={() => handleCancelSurgery(surgery._id)}
                 className="w-full bg-red-500 hover:bg-red-200 text-white font-semibold py-2 rounded-lg transition-colors"
               >
                 Cancel Surgery?

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { createSurgery } from '../api/surgery';
+import { useNavigate } from 'react-router-dom';
 
 const SurgeryForm = () => {
-  const [form, setForm] = useState({
+  const navigate = useNavigate();
+  const [surgery, setsurgery] = useState({
     type: '',
     surgeon: '',
     patientId: '',
@@ -10,20 +12,20 @@ const SurgeryForm = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setsurgery({ ...surgery, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     await createSurgery({
-      type: form.type,
-      surgeon: form.surgeon,
+      type: surgery.type,
+      surgeon: surgery.surgeon,
       patientId: localStorage.getItem('userId'),
-      surgeryDate: form.surgeryDate,
+      surgeryDate: surgery.surgeryDate,
     });
 
-    alert('Surgery scheduled!');
+    navigate('/');
   };
 
   return (

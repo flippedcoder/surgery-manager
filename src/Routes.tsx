@@ -6,7 +6,7 @@ import Register from './pages/Register';
 
 const Router = () => {
   const isAuthenticated = !!localStorage.getItem('token');
-  console.log('isAuthenticated:', isAuthenticated);
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
