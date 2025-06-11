@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Resource from '../models/Resource';
 import Reservation from '../models/Reservation';
 
+// This function reserves a resource for a surgeon in a specific time window
 export const reserveResource = async (resourceId: string, user: string, start: Date, end: Date) => {
   const session = await mongoose.startSession();
   session.startTransaction();
